@@ -1,4 +1,4 @@
-set f [open "timing_report.txt" r]
+set f [open "timing_temp.txt" r]
 set lines [split [read $f] "\n"]
 close $f
 
