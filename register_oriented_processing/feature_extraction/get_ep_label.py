@@ -33,7 +33,7 @@ def get_dc_label(bench, design_name, design_top, clk_name):
     feat_dict = {}
     ret_ep_lst = []
     
-    rpt_dir = f"/home/coguest5/RTL-Timer/dataset/netlist/netlist_rpt"
+    rpt_dir = f"/work/CSE291/paper_presentation/RTL-Timer/dataset/netlist/netlist_rpt"
     if phase == 'SYN':
         sta_rpt_dir = f"{rpt_dir}/{design_name}.timing.rpt"
     # else:
@@ -90,7 +90,7 @@ def get_dc_label(bench, design_name, design_top, clk_name):
 
         # print(vec)
 
-    with open (f'/home/coguest5/RTL-Timer/dataset/netlist/label/{design_name}_{phase}.pkl', 'wb') as f:
+    with open (f'/work/CSE291/paper_presentation/RTL-Timer/dataset/netlist/label/{design_name}_{phase}.pkl', 'wb') as f:
         pickle.dump(feat_dict_final, f)
     
     print(len(ret_ep_lst))
@@ -101,7 +101,7 @@ def get_dc_label(bench, design_name, design_top, clk_name):
 def run_one_design(bench, design_name, design_top, clk_name):
     label_dict = get_dc_label(bench, design_name, design_top, clk_name)
 
-    with open (f"/home/coguest5/RTL-Timer/dataset/BOG/SOG/feat/{design_name}.pkl", "rb") as f:
+    with open (f"/work/CSE291/paper_presentation/RTL-Timer/dataset/BOG/SOG/feat/{design_name}.pkl", "rb") as f:
         sog_ep_dct = pickle.load(f)
     
     idx = 0
@@ -151,7 +151,7 @@ def run_one_design(bench, design_name, design_top, clk_name):
 
     print(f'Register mapping coverage: {round(len(final_label_dct)/ll_label,2)*100}%')
 
-    with open (f"/home/coguest5/RTL-Timer/modeling/feat_label/bit-wise/{design_name}.pkl", "wb") as f:
+    with open (f"/work/CSE291/paper_presentation/RTL-Timer/modeling/feat_label/bit-wise/{design_name}.pkl", "wb") as f:
         pickle.dump((final_feat_dct, final_label_dct), f)
 
 
@@ -170,7 +170,7 @@ def run_one_bench(bench, design_data, name=None):
 
 
 if __name__ == '__main__':
-    design_json = f"/home/coguest5/LS-benchmark/design_rtl_timer.json"
+    design_json = f"/work/CSE291/paper_presentation/LS-benchmark/design_rtl_timer.json"
     global phase, tool
     phase = 'SYN'
     # phase = 'PREOPT'
@@ -183,9 +183,10 @@ if __name__ == '__main__':
     with open(design_json, 'r') as f:
         design_data = json.load(f)
 
-    design_name = "b17"
-    design_name = ""
-    bench_list = ['iscas', 'itc', 'opencores','VexRiscv', 'chipyard', 'riscvcores', 'NVDLA']
+    #design_name = "b17"
+    design_name = "Rocket1"
+    #bench_list = ['iscas', 'itc', 'opencores','VexRiscv', 'chipyard', 'riscvcores', 'NVDLA']
+    bench_list = ['rocket']
 
     # for bench in bench_list:
     #     run_one_bench(bench, design_data, design_name)

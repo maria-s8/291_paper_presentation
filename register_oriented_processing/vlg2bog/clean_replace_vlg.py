@@ -1,5 +1,5 @@
 import os, re,json
-design_json = "/home/coguest5/LS-benchmark/design_rtl_timer.json"
+design_json = "/work/CSE291/paper_presentation/LS-benchmark/design_rtl_timer.json"
 
 def clean_vlg(file):
     file_tmp = file + ".tmp"
@@ -62,8 +62,8 @@ def run_all(bench, design_name=None):
         bench_data = design_data[bench]
     for name, v in bench_data.items():
         top_name = v[0]
-        infile = f"/home/coguest5/RTL-Timer/dataset/BOG/{cmd}/generated_netlist_file/{top_name}_{name}_TYP.syn.v"
-        outfile = f"/home/coguest5/RTL-Timer/dataset/BOG/{cmd}/mapped_netlist/{top_name}_{name}_TYP.syn.v"
+        infile = f"/work/CSE291/paper_presentation/RTL-Timer/dataset/BOG/{cmd}/generated_netlist_file/{top_name}_{name}_TYP.syn.v"
+        outfile = f"/work/CSE291/paper_presentation/RTL-Timer/dataset/BOG/{cmd}/mapped_netlist/{top_name}_{name}_TYP.syn.v"
         if design_name:
             if name == design_name:
                 print('Current Design: ', name)
@@ -77,7 +77,8 @@ if __name__ == '__main__':
     global cmd
     cmd = 'SOG'
 
-    bench_list_all = ['itc','opencores','VexRiscv', 'chipyard', 'riscvcores','NVDLA']
+    #bench_list_all = ['itc','opencores','VexRiscv', 'chipyard', 'riscvcores','NVDLA']
+    bench_list_all = ['rocket']
     design_name = ''
 
     for bench in bench_list_all:

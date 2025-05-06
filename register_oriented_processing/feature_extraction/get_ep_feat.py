@@ -2,7 +2,7 @@ import re, os, time, json, pickle
 from timing_path import timing_path
 
 
-bench_dir = "/home/coguest5/LS-benchmark"
+bench_dir = "/work/CSE291/paper_presentation/RTL-Timer/LS-benchmark/"
 
 def get_rank(idx, ll):
     l_0 = ll*0
@@ -40,7 +40,7 @@ def autoRun(bench, design_name, design_top, clk_name, user=None):
     print('Current Design: ', design_name)
     feat_dict = {}
 
-    flow_dir = f"/home/coguest5/RTL-Timer/dataset/BOG/{cmd}/timing_rpt"
+    flow_dir = f"/work/CSE291/paper_presentation/RTL-Timer/dataset/BOG/{cmd}/timing_rpt"
     sta_rpt_dir = f"{flow_dir}/{design_name}.timing.rpt"
 
     with open (sta_rpt_dir, 'r') as f:
@@ -48,10 +48,12 @@ def autoRun(bench, design_name, design_top, clk_name, user=None):
     
     path_cnt = 0
     for idx, line in enumerate(lines):
-        s = re.findall(r"^  Startpoint: (\S+)", line)
-        e = re.findall(r"^  Endpoint: (\S+)", line)
-        s_line = re.findall(r"^  Point(\s+)Fanout(\s+)Cap(\s+)Trans(\s+)Incr(\s+)Path(.*)", line)
-        e_line = re.findall(r"^  data arrival time(.*)", line)
+        s = re.findall(r"^Startpoint: (\S+)", line)
+        e = re.findall(r"^Endpoint: (\S+)", line)
+        #s_line = re.findall(r"^  Point(\s+)Fanout(\s+)Cap(\s+)Trans(\s+)Incr(\s+)Path(.*)", line)
+        s_line = re.findall(r"^  Delay(\s+)Time(\s+)Description(.*)", line)
+        #e_line = re.findall(r"^  data arrival time(.*)", line)
+        e_line = re.findall(r"^\s+(.*)\s+data arrival time", line)
         if s:
             start = s[0]
         elif e:
@@ -60,7 +62,7 @@ def autoRun(bench, design_name, design_top, clk_name, user=None):
             path = timing_path(start, end)
             node_name = None
             while not e_line:
-                e_line = re.findall(r"^  data arrival time(.*)", lines[idx])
+                e_line = re.findall(r"^\s+(.*)\s+data arrival time", lines[idx])
                 node_name = path.add_cell(lines[idx], node_name)
                 idx += 1
             path_cnt += 1
@@ -86,7 +88,7 @@ def autoRun(bench, design_name, design_top, clk_name, user=None):
     # print(feat_dict_final)
     # exit()
 
-    with open (f'/home/coguest5/RTL-Timer/dataset/BOG/{cmd}/feat/{design_name}.pkl', 'wb') as f:
+    with open (f'/work/CSE291/paper_presentation/RTL-Timer/dataset/BOG/{cmd}/feat/{design_name}.pkl', 'wb') as f:
         pickle.dump(feat_dict_final, f)
 
     
@@ -115,9 +117,10 @@ if __name__ == '__main__':
         design_data = json.load(f)
 
     for phase in ['SYN']:
-        design_name = "TinyRocket"
-        design_name = ""
-        bench_list = ['iscas', 'itc', 'opencores','VexRiscv', 'chipyard', 'riscvcores', 'NVDLA']
+        #design_name = "TinyRocket"
+        design_name = "Rocket1"
+        #bench_list = ['iscas', 'itc', 'opencores','VexRiscv', 'chipyard', 'riscvcores', 'NVDLA']
+        bench_list = ['rocket']
         for bench in bench_list:
             run_one_bench(bench, design_data, design_name)
 

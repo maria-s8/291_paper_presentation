@@ -1,7 +1,7 @@
 import os, re, json
 from multiprocessing import Pool
 from clean_replace_vlg import clean_vlg, clean_map_vlg
-design_json = "/home/coguest5/LS-benchmark/design_rtl_timer.json"
+design_json = "/work/CSE291/paper_presentation/RTL-Timer/LS-benchmark/design_rtl_timer.json"
 
 def run_one_design(para):
     bench, design, top_name = para
@@ -14,15 +14,17 @@ def run_one_design(para):
     ### change path here ###
     ## 1. original RTL code path
     ## change the RTL path first
-    design_path = f"/home/coguest5/LS-benchmark/{bench}/rtl/{design}/"
+    #design_path = f"/home/coguest5/LS-benchmark/{bench}/rtl/{design}/"
+    design_path = f"/work/CSE291/paper_presentation/RTL-Timer/dataset_example/rtl/Rocket"
     ## 2. BOG output path
-    save_path = f"/home/coguest5/RTL-Timer/dataset/BOG/{cmd}/generated_netlist_file/{top_name}_{design}_TYP.syn.v"
-    mapped_save_path = f"/home/coguest5/RTL-Timer/dataset/BOG/{cmd}/mapped_netlist/{top_name}_{design}_TYP.syn.v"
+    save_path = f"/work/CSE291/paper_presentation/RTL-Timer/dataset/BOG/{cmd}/generated_netlist_file/{top_name}_{design}_TYP.syn.v"
+    mapped_save_path = f"/work/CSE291/paper_presentation/RTL-Timer/dataset/BOG/{cmd}/mapped_netlist/{top_name}_{design}_TYP.syn.v"
     #######################
     if bench in ['itc']:
         read_line = f"read  -verific;\nread -vhdl {design_path}/{design}.vhd\n"
     else:
-        read_line = f"read -verific;\nread_verilog {design_path}/*.v\n"
+        #read_line = f"read -verific;\nread_verilog {design_path}/*.v\n"
+        read_line = f"read_verilog {design_path}/*.v\n"
 
     with open(ys_scr, "w") as f_scr:
         f_scr.writelines(read_line)
@@ -34,7 +36,7 @@ def run_one_design(para):
     os.system(f"yosys {ys_scr}")
     os.system(f"rm -rf {ys_scr}")
 
-    os.system(f'cp ./sdc_template.sdc /home/coguest5/RTL-Timer/dataset/BOG/{cmd}/generated_sdc_file/{top_name}_{design}_TYP.sdc')
+    os.system(f'cp ./sdc_template.sdc /work/CSE291/paper_presentation/RTL-Timer/dataset/BOG/{cmd}/generated_sdc_file/{top_name}_{design}_TYP.sdc')
 
     clean_map_vlg(save_path, mapped_save_path)
 
@@ -83,7 +85,8 @@ if __name__ == '__main__':
     assert cmd in ['SOG', 'AIG', 'AIMG', 'XAG']
 
 
-    bench_list_all = ['itc','opencores','VexRiscv', 'chipyard', 'riscvcores','NVDLA']
+    #bench_list_all = ['itc','opencores','VexRiscv', 'chipyard', 'riscvcores','NVDLA']
+    bench_list_all = ['rocket']
     design_name = ''
 
     
