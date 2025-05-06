@@ -2,32 +2,24 @@ set f [open "timing_report.txt" r]
 set lines [split [read $f] "\n"]
 close $f
 
-puts "Startpoint\tEndpoint\tSlack\t\tNet\tFanout"
 
-set start ""
-set end ""
-set slack ""
-set net ""
-
+# Iterate over each line
 foreach line $lines {
-    if {[regexp {Startpoint: (\S+)} $line -> s]} {
-        set start $s
-    }
-    if {[regexp {Endpoint: (\S+)} $line -> e]} {
-        set end $e
-    }
-    if {[regexp {Slack:\s+(-?\d+\.\d+)} $line -> sl]} {
+    # Check if this is a line with a net name ending in (net)
+    if {[regexp {^\s*Cap\s+Slew\s+Delay\s+Time\s+Description\s*} $line]} {
+        # Append fanout to the end of the line (align neatly)
+        puts [format "%-85s Fanout" $line]
+    } elseif {[regexp {^\s+([^\s]+) \(net\)} $line -> net_name]} {
+        # Use OpenSTA to get fanout of the net
+        set net [get_nets $net_name]
+        set fanouts [get_fanout -from $net -levels 3 -trace_arcs timing] 
+        set fanout_count [llength $fanouts]
+
+        # Append fanout to the end of the line (align neatly)
+        # puts [format "%-85s Fanout: %d" $line $fanout_count]
+        puts [format "%-85s %d" $line $fanout_count]
+    } else {
+        # Print all other lines as-is
         puts $line
-        set slack $sl
-    }
-    if {[regexp {Net:\s+(\S+)} $line -> netname]} {
-        set net $netname
-
-        # Compute fanout
-        set fanout_objs [get_fanout -from $net]
-        set fanout [llength $fanout_objs]
-
-        # Print the final row
-        puts "$start\t$end\t$slack\t$net\t$fanout"
     }
 }
