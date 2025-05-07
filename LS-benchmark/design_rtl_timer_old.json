@@ -1,0 +1,22 @@
+{
+    "design_name": "RocketChip",
+    "top_module": "Rocket",
+    "source_files": [
+      "/work/CSE291/paper_presentation/RTL-Timer/dataset_example/rtl/Rocket/chipyard.TestHarness.RocketConfig.top.v",
+      "/work/CSE291/paper_presentation/RTL-Timer/dataset_example/rtl/Rocket/plusarg_reader.v"
+    ],
+    "include_dirs": [
+    ],
+    "constraints": "/work/CSE291/paper_presentation/RTL-Timer/register_oriented_processing/vlg2bog/sdc_template.sdc",
+    "clocks": [
+      {
+        "name": "CLK_clock",
+        "period": 0.5,
+        "waveform": [0.0, 0.25]
+      }
+    ],
+    "synthesis_tool": "yosys",
+    "simulation_tool": "iverilog",
+    "tech_library": "/work/CSE291/paper_presentation/RTL-Timer/register_oriented_processing/vlg2bog/nangate45_SOG.lib",
+    "notes": "Additional information about the design."
+  }
