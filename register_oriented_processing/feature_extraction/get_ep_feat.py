@@ -51,7 +51,7 @@ def autoRun(bench, design_name, design_top, clk_name, user=None):
         s = re.findall(r"^Startpoint: (\S+)", line)
         e = re.findall(r"^Endpoint: (\S+)", line)
         #s_line = re.findall(r"^  Point(\s+)Fanout(\s+)Cap(\s+)Trans(\s+)Incr(\s+)Path(.*)", line)
-        s_line = re.findall(r"^  Delay(\s+)Time(\s+)Description(.*)", line)
+        s_line = re.findall(r"^(\s+)Cap(\s+)Slew(\s+)Delay(\s+)Time(\s+)Description(\s+)Fanout(.*)", line)
         #e_line = re.findall(r"^  data arrival time(.*)", line)
         e_line = re.findall(r"^\s+(.*)\s+data arrival time", line)
         if s:
