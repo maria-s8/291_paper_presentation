@@ -33,7 +33,7 @@ def get_dc_label(bench, design_name, design_top, clk_name):
     feat_dict = {}
     ret_ep_lst = []
     
-    rpt_dir = f"/work/CSE291/paper_presentation/RTL-Timer/dataset/netlist/netlist_rpt"
+    rpt_dir = f"/work/CSE291/paper_presentation/RTL-Timer/dataset_example/netlist/netlist_rpt"
     if phase == 'SYN':
         sta_rpt_dir = f"{rpt_dir}/{design_name}.timing.rpt"
     # else:

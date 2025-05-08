@@ -81,7 +81,7 @@ def run_all_parallel(bench):
 if __name__ == '__main__':
     
     global cmd
-    cmd = 'SOG'
+    cmd = 'XAG'
     assert cmd in ['SOG', 'AIG', 'AIMG', 'XAG']
 
 

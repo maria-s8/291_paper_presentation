@@ -11,7 +11,7 @@ import numpy as np
 from multiprocessing import Pool
 from random import shuffle
 from stat_ import *
-design_json = "/data/wenjifang/AIG_analyzer/LS-benchmark/design_timing_rgb.json"
+#design_json = "/data/wenjifang/AIG_analyzer/LS-benchmark/design_timing_rgb.json"
 
 
 
