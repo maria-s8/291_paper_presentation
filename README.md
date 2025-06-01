@@ -1,4 +1,4 @@
-# Annotating Slack Directly on Your Verilog: Fine-Grained RTL Timing Evaluation for Early Optimization
+# Reproduction of work in paper "Annotating Slack Directly on Your Verilog: Fine-Grained RTL Timing Evaluation for Early Optimization"
 
 Wenji Fang, Shang Liu, Hongce Zhang, Zhiyao Xie. In Proceedings of ACM/IEEE Design Automation Conference (DAC), 2024. [[paper]](https://zhiyaoxie.com/files/DAC24_RTLTimer.pdf)
 
