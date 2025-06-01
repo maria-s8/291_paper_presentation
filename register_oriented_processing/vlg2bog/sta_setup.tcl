@@ -1,5 +1,5 @@
-read_verilog ../../dataset/BOG/SOG/mapped_netlist/Rocket_Rocket1_TYP.syn.v
-read_liberty nangate45_SOG.lib
+read_verilog ./postmap.v
+read_liberty nangate45.lib
 link_design Rocket
 create_clock -name CLK_clock -period 0.5 {clock}
 read_sdc ../../dataset/BOG/SOG/generated_sdc_file/Rocket_Rocket1_TYP.sdc
